@@ -5,9 +5,13 @@ meta {
 }
 
 get {
-  url: {{base_url}}/items/Calls
+  url: {{base_url}}/items/Calls?fields
   body: none
   auth: inherit
+}
+
+params:query {
+  fields: 
 }
 
 settings {
