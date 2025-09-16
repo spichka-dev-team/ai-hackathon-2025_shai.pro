@@ -1,0 +1,30 @@
+name: Deploy Repo (Staging Server)
+
+on:
+  push:
+    branches: [ main ]
+
+# Concurrency ensures only one deploy per branch/ref runs at a time.
+# - group: creates a unique key by ref, so pushes to the same branch cancel prior runs.
+# - cancel-in-progress: true means a new run will cancel any currently running one in the same group.
+#concurrency:
+#  group: staging-${{ github.ref }}
+#  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run deploy.sh over SSH
+        uses: appleboy/ssh-action@v1.2.1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -euo pipefail
+            cd /root/uiren/redline-directus-back
+            chmod +x ./deploy.sh
+            export COMPOSE_FILE="docker-compose.staging.yml"
+            export DIRECTUS_PORT=8060
+            ./deploy.sh

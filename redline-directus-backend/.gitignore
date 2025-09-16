@@ -1,0 +1,4 @@
+/directus/uploads/*
+/directus/database/*
+
+.env
