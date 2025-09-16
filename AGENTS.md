@@ -1,4 +1,10 @@
-# AI Hackathon 2025 -| shai.pro
+# AGENTS.md
+
+## AGENTS
+
+> Audience: LLM-driven engineering agents
+
+## AI Hackathon 2025 | shai.pro
 
 ├───.specstory
 │   └───history (AI chat history)
@@ -6,15 +12,387 @@
 ├───sources (sources/references to useful articles/text contents)
 ├───docs (documents and informations about Hacakaton)
 ├───ARCHITECTURE.md (Architecture Of System, Uncompleted)
+├───README.md ()
 └───AGENTS.md (entrypoint, README.md file for LLM/Copilot model Context)
 
 ---
 
-> shai.pro is like n8n.io (you need to )
+> shai.pro is like n8n.io (shai.pro is platform for creating AI agents)
 
-## Context
+## shai.pro Interface Capabilities
 
-### Our Choosen Task
+Studio:
+
+CREATE APP
+Create from Blank
+Import DSL file
+
+- All
+- Chatbot
+- Agent
+- Completion
+- Chatflow
+- Workflow
+
+---
+
+Knowledge:
+
+Create Knowledge
+Import your own text data or write data in real-time via Webhook for LLM context enhancement.
+
+---
+
+Tools:
+
+- Tools
+- Custom (Create Custom Tools)
+- Workflow
+
+Code Interpreter
+Run a piece of code and get the result back. #productivity
+
+CurrentTime
+A tool for getting the current time. #utilities
+
+Audio
+A tool for tts and asr. #utilities
+
+WebScraper
+Web Scrapper tool kit is used to scrape web #productivity
+
+---
+
+Code Interpreter
+
+Run a piece of code and get the result back.
+1 action INCLUDED
+Code Interpreter
+Run code and get the result back. When you're using a lower quality model, please make sure there are some tips help LLM to understand how to write the code.
+
+Code Interpreter
+Run code and get the result back. When you're using a lower quality model, please make sure there are some tips help LLM to understand how to write the code.
+parameters
+Language
+string
+Required
+The programming language of the code
+Code
+string
+Required
+The code to be executed
+
+---
+
+CurrentTime
+
+A tool for getting the current time.
+5 actions INCLUDED
+Timestamp to localtime
+A tool for timestamp convert to localtime
+Weekday Calculator
+A tool for calculating the weekday of a given date.
+Current Time
+A tool for getting the current time.
+convert time to equivalent time zone
+A tool to convert time to equivalent time zone
+localtime to timestamp
+A tool for localtime convert to timestamp
+
+---
+
+Audio
+
+A tool for tts and asr.
+2 actions INCLUDED
+Speech To Text
+Convert audio file to text.
+Text To Speech
+Convert text to audio file.
+
+Speech To Text
+Convert audio file to text.
+parameters
+Audio File
+file
+Required
+The audio file to be converted.
+
+Text To Speech
+Convert text to audio file.
+parameters
+Text
+string
+Required
+The text to be converted.
+
+---
+
+Web Scrapper tool kit is used to scrape web
+1 action INCLUDED
+Web Scraper
+A tool for scraping webpages.
+
+Web Scraper
+A tool for scraping webpages.
+parameters
+URL
+string
+Required
+used for linking to webpages
+
+---
+
+Custom (Create Custom Tools)
+
+Create Custom Tool
+Name *
+app logo
+Enter the tool name
+Available Tools
+Name -> Description -> Method -> Path -> Actions
+Authorization method
+None
+Tags
+Choose tags(optional)
+Privacy policy
+Please enter privacy policy
+Custom disclaimer
+
+---
+
+Workflow
+
+No workflow tool available
+Go to "Workflow -> Publish as Tool"
+
+---
+
+Settings
+
+Settings
+WORKSPACE
+Model Provider
+Members
+Data Source
+GENERAL
+Language
+
+ESC
+Model Provider
+Search
+Models
+The system model has not yet been fully configured
+System Model Settings
+Model provider not set up
+Please install a model provider first.
+
+---
+
+System Reasoning Model
+Configure model
+Embedding Model
+Configure model
+Rerank Model
+Configure model
+Speech-to-Text Model
+Configure model
+Text-to-Speech Model
+Configure model
+
+---
+
+Settings
+WORKSPACE
+Model Provider
+Members
+Data Source
+GENERAL
+Language
+
+ESC
+Data Source
+Notion
+Using Notion as a data source for the Knowledge.
+Connect
+Website
+With Jina Reader
+Import content from websites using web crawler.
+Configure
+Website
+With 🔥 Firecrawl
+Import content from websites using web crawler.
+Configure
+Website
+With WaterCrawl
+Import content from websites using web crawler.
+Configure
+
+---
+
+
+STEP 1
+Data Source
+2
+Document Processing
+3
+Execute & Finish
+Data Source
+Import from file
+Sync from Notion
+Sync from website
+OCR Method
+Default
+Upload file
+Drag and drop file or folder, orBrowse
+Supports TXT, MARKDOWN, MDX, PDF, HTML, XLSX, XLS, DOCX, CSV, VTT, PROPERTIES, MD, HTM. Max 15MB each.
+
+Next
+I want to create an empty Knowledge
+
+---
+
+Workflow
+
+Orchestrate
+Logs
+Планировщик
+Monitoring
+
+---
+
+Workflow Logs
+The log recorded the operation of Automate.
+
+All
+Last 7 Days
+Search
+Is anyone there?
+Observe and annotate interactions between end-users and AI applications here to continuously improve AI accuracy. You can try sharing or testing the Web App yourself, then return to this page.
+
+---
+
+Планировщик
+Здесь вы можете управлять кронтабом: добавлять новые задания, изменять расписание и следить за статусом выполнения
+Поиск
+Создать новый
+Название -> Периодичность -> Время выполнения -> Статус -> Действия
+Нет крон-заданий
+
+---
+
+To get started,
+setup your model provider first.
+
+Go to setup model provider
+Or try the cloud version of Sherlock with free quote
+Monitoring
+app logo
+testging
+Ready-to-use AI web app
+In Service
+
+Public URL
+[hackathon.shai.pro/workflow](http://hackathon.shai.pro/workflow/BM5nxEI8PiVk1LI6)
+
+Launch
+
+Settings
+Analysis
+
+Last 7 Days
+Total Messages
+Last 7 Days
+0
+Active Users
+Last 7 Days
+0
+Token Usage
+Last 7 Days
+0
+Avg. User Interactions
+Last 7 Days
+0
+
+---
+
+Orchestrate
+
+
+Начало
+Add description...
+Input Field
+Set inputs that can be used in the Workflow
+sys.files
+LEGACY
+Array[File]
+sys.user_id
+String
+sys.app_id
+String
+sys.workflow_id
+String
+sys.workflow_run_id
+String
+NEXT STEP
+Add the next block in this workflow
+LLM
+Add Parallel Node
+
+
+LLM
+Add description...
+model *
+context
+Set variable
+vision
+
+Output Variables
+Structured
+
+retry on failure
+
+Error Handling
+None
+NEXT STEP
+Add the next block in this workflow
+Select Next Block
+
+Blocks
+Tools
+LLM
+Knowledge Retrieval
+End
+Agent
+Question Understand
+Question Classifier
+Logic
+IF/ELSE
+Iteration
+Loop
+Transform
+Code
+Template
+Variable Aggregator
+Doc Extractor
+Variable Assigner
+Parameter Extractor
+Utilities
+HTTP Request
+List Operator
+
+---
+
+Features
+Enhance web app user experience
+Image Upload
+LEGACY
+
+Allow uploading images.
+
+### Context
+
+#### Our Choosen Task
 
 1 задача:
 ИИ-секретарь для онлайн-встреч (Zoom/Meet → Jira)
@@ -36,7 +414,13 @@
 
 ---
 
-### Our Idea
+#### Our Idea
+
+
+
+---
+
+#### Idea (Brainstorming Context) (Drafted)
 
 RED LINE — превращает разговоры в результат
 Операционная система коммуникаций
@@ -62,8 +446,6 @@ RED LINE — превращает разговоры в результат
 RED LINE — это инструмент, который убирает разрыв между словами и делами. Он фиксирует договорённости с митингов и звонков, превращает их в задачи с ответственными и показывает прогресс по команде.
 
 ---
-
-### Idea (Brainstorming Context)
 
 Йоу
 
@@ -144,7 +526,7 @@ shai.pro это по сути как n8n платформа.
 
 ---
 
-### Requirements
+#### Requirements
 
 Технические Условия
 Модели LLM:

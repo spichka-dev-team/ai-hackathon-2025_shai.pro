@@ -1,0 +1,15 @@
+meta {
+  name: Get All Calls
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/items/Calls
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
