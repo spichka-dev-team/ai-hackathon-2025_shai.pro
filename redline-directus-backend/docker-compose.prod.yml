@@ -5,21 +5,21 @@ networks:
     #driver: bridge
 
 volumes:
-  postgres_staging-data:
-  directus_staging-uploads:
+  postgres_prod-data:
+  directus_prod-uploads:
 
 
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: postgres_staging
+    container_name: postgres_prod
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - postgres_staging-data:/var/lib/postgresql/data
+      - postgres_prod-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_DATABASE}"]
       interval: 5s
@@ -32,7 +32,7 @@ services:
     build:
       context: ./directus
       dockerfile: Dockerfile
-    container_name: directus_staging
+    container_name: directus_prod
     restart: unless-stopped
     depends_on:
       postgres:
@@ -40,15 +40,15 @@ services:
     # если доступ только по Frontend:3000 и Nginx Reverse Proxy — порты на хост можно не пробрасывать
     # и использовать этот Сервис как `directus:8055`, так как мы в одном Сети/Network который мы создали сверху
     ports:
-      - "8060:8055"
-      #- "0.0.0.0:8060:8055"
-      #- "127.0.0.1:8060:8055"
+      - "8055:8055"
+      #- "0.0.0.0:8055:8055"
+      #- "127.0.0.1:8055:8055"
     
     env_file:
       - .env
     volumes:
       #- ./directus/database:/directus/database   # <── we are using PostgreSQL as DB, and docker volume
-      - directus_staging-uploads:/directus/uploads   # <── use named volume to avoid host FS permission issues
+      - directus_prod-uploads:/directus/uploads   # <── use named volume to avoid host FS permission issues
 
       # NOTE: if you decomment the `./directus/extensions` it will rewrite the Dockerfile COPY directus-sync extension,
       # and so you need to mount your extensions directly in Dockerfile with directus-sync or store extensions in repo/direcus/extensions and mount it in the docker compose with volume!
@@ -99,7 +99,7 @@ services:
       context: ./directus-sync
       dockerfile: Dockerfile.prod
     image: local/directus-sync:3.3.0
-    container_name: directus-sync_staging
+    container_name: directus-sync_prod
     depends_on:
       - directus
     environment:
