@@ -1,8 +1,8 @@
 networks:
   redline-network:
     # run the: docker network create redline-network
-    external: true
-    #driver: bridge
+    #external: true
+    driver: bridge
 
 volumes:
   postgres_prod-data:
@@ -17,7 +17,7 @@ services:
 
   postgres:
     image: postgres:15-alpine
-    container_name: postgres_staging
+    container_name: postgres_prod
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${DB_DATABASE}
@@ -37,7 +37,7 @@ services:
     build:
       context: ./redline-directus-backend/directus
       dockerfile: Dockerfile
-    container_name: directus_staging
+    container_name: directus_prod
     restart: unless-stopped
     depends_on:
       postgres:
