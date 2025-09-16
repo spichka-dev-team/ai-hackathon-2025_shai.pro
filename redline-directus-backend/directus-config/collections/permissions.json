@@ -1,0 +1,44 @@
+[
+  {
+    "collection": "Calls",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "transcript",
+      "summary"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "924f0618-5039-43d6-926f-9846572aba51"
+  },
+  {
+    "collection": "Calls",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "id",
+      "date_created",
+      "date_updated",
+      "transcript",
+      "summary"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "b3a11ff7-12b2-4fb5-8d0c-3699a33cbd9e"
+  },
+  {
+    "collection": "Calls",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "transcript",
+      "summary"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "386ddb15-634d-4834-8ef6-c603281ae523"
+  }
+]
