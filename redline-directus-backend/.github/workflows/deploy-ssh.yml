@@ -26,5 +26,5 @@ jobs:
             cd /root/uiren/redline-directus-back
             chmod +x ./deploy.sh
             export COMPOSE_FILE="docker-compose.staging.yml"
-            export DIRECTUS_PORT=8055
+            export DIRECTUS_PORT=8060
             ./deploy.sh
