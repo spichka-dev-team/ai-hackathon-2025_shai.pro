@@ -73,3 +73,25 @@ services:
       - tools
     networks:
       - redline-network
+
+  #ngrok:
+  #  image: ngrok/ngrok:3
+  #  container_name: ngrok_directus
+  #  restart: unless-stopped
+  #  depends_on:
+  #    directus:
+  #      condition: service_healthy
+  #  environment:
+  #    # Set your token in .env as NGROK_AUTHTOKEN
+  #    NGROK_AUTHTOKEN: ${NGROK_AUTHTOKEN}
+  #  command:
+  #    - http
+  #    - --log=stdout
+  #    - --hostname=${NGROK_DOMAIN:-}
+  #    - directus:8055
+  #  ports:
+  #    - "4040:4040" # ngrok web UI
+  #  profiles:
+  #    - tools
+  #  networks:
+  #    - redline-network

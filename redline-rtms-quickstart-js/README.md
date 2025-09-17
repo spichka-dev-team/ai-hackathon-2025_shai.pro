@@ -137,7 +137,18 @@ rtms.onWebhookEvent(({ event, payload }) => {
 });
 ```
 
-## 📊 Media Parameter Configuration
+## � Posting to Backend (Directus)
+
+This example can optionally post meeting data to a backend (e.g., Directus). Configure the following in `.env`:
+
+- `BACKEND_BASE_URL` – Base URL of your backend (e.g., <http://localhost:8055>)
+- `BACKEND_AUTH_TOKEN` – Bearer token or API key
+- `CALLS_COLLECTION` – Optional, defaults to `Calls`
+- `TRANSCRIPT_COLLECTION` – Optional, defaults to `Transcript`
+
+On `meeting.rtms_started`, a Calls row is created. Each transcript line is posted to Transcript. On `meeting.rtms_stopped`, the Calls row is patched with an aggregated transcript.
+
+## �📊 Media Parameter Configuration
 
 Configure audio, video, and deskshare processing parameters before joining:
 
@@ -197,3 +208,4 @@ For complete parameter options and detailed documentation:
 - 📹 **[Video Parameters](https://zoom.github.io/rtms/js/interfaces/VideoParameters.html)** - Complete video configuration options  
 - 🖥️ **[Deskshare Parameters](https://zoom.github.io/rtms/js/interfaces/VideoParameters.html)** - Complete deskshare configuration options
 - 📖 **[Full API Documentation](https://zoom.github.io/rtms/js/)** - Complete SDK reference
+ 
