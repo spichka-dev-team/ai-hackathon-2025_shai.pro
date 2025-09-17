@@ -73,7 +73,7 @@ services:
     build:
       context: ./redline-directus-backend/directus-sync
       dockerfile: Dockerfile.prod
-    image: local/directus-sync:3.3.0
+    image: ./redline-directus-backend/directus-sync:3.3.0
     container_name: directus-sync_prod
     depends_on:
       - directus
@@ -84,7 +84,7 @@ services:
     volumes:
       # or in Dockerfile: COPY directus-sync.config.js /work/directus-sync.config.js
       #- ./directus-sync/directus-sync.config.js:/work/directus-sync.config.js:ro
-      - ./directus-config:/work/directus-config   # <── Mounts host ./directus-config
+      - ./redline-directus-backend/directus-config:/work/directus-config   # <── Mounts host ./directus-config
     working_dir: /work
     entrypoint: ["directus-sync"]
     profiles:
