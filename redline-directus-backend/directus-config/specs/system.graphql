@@ -263,8 +263,8 @@ type Subscription {
   directus_versions_mutated(event: EventEnum): directus_versions_mutated
   directus_comments_mutated(event: EventEnum): directus_comments_mutated
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
-  Calls_mutated(event: EventEnum): Calls_mutated
   Transcripts_mutated(event: EventEnum): Transcripts_mutated
+  Calls_mutated(event: EventEnum): Calls_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""
@@ -346,7 +346,6 @@ type Calls {
   date_updated: Date
   date_updated_func: datetime_functions
   summary: String
-  meeting_uuid: String
   rtms_stream_id: String
   server_urls: String
   started_at: Date
@@ -354,6 +353,7 @@ type Calls {
   ended_at: Date
   ended_at_func: datetime_functions
   generated_title: String
+  meeting_uuid: String
   transcripts(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcripts]
   transcripts_func: count_functions
 }
@@ -1723,7 +1723,6 @@ input Calls_filter {
   date_updated: date_filter_operators
   date_updated_func: datetime_function_filter_operators
   summary: string_filter_operators
-  meeting_uuid: string_filter_operators
   rtms_stream_id: string_filter_operators
   server_urls: string_filter_operators
   started_at: date_filter_operators
@@ -1731,6 +1730,7 @@ input Calls_filter {
   ended_at: date_filter_operators
   ended_at_func: datetime_function_filter_operators
   generated_title: string_filter_operators
+  meeting_uuid: string_filter_operators
   transcripts: Transcripts_filter
   transcripts_func: count_function_filter_operators
   _and: [Calls_filter]

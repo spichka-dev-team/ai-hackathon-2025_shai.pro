@@ -1,7 +1,7 @@
 {
   "collection": "Calls",
   "field": "meeting_uuid",
-  "type": "uuid",
+  "type": "string",
   "meta": {
     "collection": "Calls",
     "conditions": null,
@@ -15,10 +15,8 @@
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 11,
-    "special": [
-      "uuid"
-    ],
+    "sort": 10,
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
@@ -27,9 +25,9 @@
   "schema": {
     "name": "meeting_uuid",
     "table": "Calls",
-    "data_type": "uuid",
+    "data_type": "character varying",
     "default_value": null,
-    "max_length": null,
+    "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,

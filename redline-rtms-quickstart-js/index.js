@@ -1,5 +1,7 @@
 // Load environment variables from .env (works under PM2 as well)
 import "dotenv/config";
+import fs from "node:fs";
+import path from "node:path";
 // Import the RTMS SDK
 import rtms from "@zoom/rtms";
 
@@ -28,6 +30,14 @@ const clients = new Map(); // streamId -> client
 // }
 const meetingState = new Map();
 
+// Ensure a writable logs directory exists to avoid SDK file logging warnings
+try {
+  const logsDir = path.resolve(process.cwd(), "logs");
+  fs.mkdirSync(logsDir, { recursive: true });
+} catch (_) {
+  // ignore
+}
+
 function toIsoTimestamp(raw) {
   // Heuristic normalization: ns -> µs -> ms
   const n = Number(raw);
@@ -35,6 +45,10 @@ function toIsoTimestamp(raw) {
   if (n > 1e15) return new Date(Math.floor(n / 1e6)).toISOString(); // ns -> ms
   if (n > 1e12) return new Date(Math.floor(n / 1e3)).toISOString(); // µs -> ms
   return new Date(n).toISOString(); // assume ms
+}
+
+function isUuid(value) {
+  return typeof value === "string" && /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(value);
 }
 
 function makeHeaders() {
@@ -63,8 +77,9 @@ async function backendRequest(path, method, body) {
 }
 
 async function createCall(payload) {
+  // Zoom meeting_uuid is not always RFC4122; only send if valid UUID, else leave null.
   const body = {
-    meeting_uuid: payload.meeting_uuid || null,
+    meeting_uuid: isUuid(payload.meeting_uuid) ? payload.meeting_uuid : null,
     rtms_stream_id: payload.rtms_stream_id || null,
     server_urls: Array.isArray(payload.server_urls)
       ? payload.server_urls.join(",")

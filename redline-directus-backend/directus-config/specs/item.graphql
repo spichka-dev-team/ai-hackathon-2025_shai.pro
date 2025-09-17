@@ -3,38 +3,38 @@ type Query {
   directus_sync_id_map_by_id(id: ID!, version: String): directus_sync_id_map
   directus_sync_id_map_aggregated(groupBy: [String], filter: directus_sync_id_map_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [directus_sync_id_map_aggregated!]!
   directus_sync_id_map_by_version(version: String!, id: ID!): version_directus_sync_id_map
-  Calls(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Calls!]!
-  Calls_by_id(id: ID!, version: String): Calls
-  Calls_aggregated(groupBy: [String], filter: Calls_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Calls_aggregated!]!
-  Calls_by_version(version: String!, id: ID!): version_Calls
   Transcripts(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcripts!]!
   Transcripts_by_id(id: ID!, version: String): Transcripts
   Transcripts_aggregated(groupBy: [String], filter: Transcripts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Transcripts_aggregated!]!
   Transcripts_by_version(version: String!, id: ID!): version_Transcripts
+  Calls(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Calls!]!
+  Calls_by_id(id: ID!, version: String): Calls
+  Calls_aggregated(groupBy: [String], filter: Calls_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Calls_aggregated!]!
+  Calls_by_version(version: String!, id: ID!): version_Calls
 }
 
 type Mutation {
   create_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_directus_sync_id_map_input!]): [directus_sync_id_map!]!
   create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
-  create_Calls_items(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Calls_input!]): [Calls!]!
-  create_Calls_item(data: create_Calls_input!): Calls
   create_Transcripts_items(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Transcripts_input!]): [Transcripts!]!
   create_Transcripts_item(data: create_Transcripts_input!): Transcripts
+  create_Calls_items(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Calls_input!]): [Calls!]!
+  create_Calls_item(data: create_Calls_input!): Calls
   update_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_directus_sync_id_map_input!): [directus_sync_id_map!]!
   update_directus_sync_id_map_batch(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_directus_sync_id_map_input!]): [directus_sync_id_map!]!
   update_directus_sync_id_map_item(id: ID!, data: update_directus_sync_id_map_input!): directus_sync_id_map
-  update_Calls_items(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Calls_input!): [Calls!]!
-  update_Calls_batch(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Calls_input!]): [Calls!]!
-  update_Calls_item(id: ID!, data: update_Calls_input!): Calls
   update_Transcripts_items(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Transcripts_input!): [Transcripts!]!
   update_Transcripts_batch(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Transcripts_input!]): [Transcripts!]!
   update_Transcripts_item(id: ID!, data: update_Transcripts_input!): Transcripts
+  update_Calls_items(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Calls_input!): [Calls!]!
+  update_Calls_batch(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Calls_input!]): [Calls!]!
+  update_Calls_item(id: ID!, data: update_Calls_input!): Calls
   delete_directus_sync_id_map_items(ids: [ID]!): delete_many
   delete_directus_sync_id_map_item(id: ID!): delete_one
-  delete_Calls_items(ids: [ID]!): delete_many
-  delete_Calls_item(id: ID!): delete_one
   delete_Transcripts_items(ids: [ID]!): delete_many
   delete_Transcripts_item(id: ID!): delete_one
+  delete_Calls_items(ids: [ID]!): delete_many
+  delete_Calls_item(id: ID!): delete_one
 }
 
 type Subscription {
@@ -60,8 +60,8 @@ type Subscription {
   directus_versions_mutated(event: EventEnum): directus_versions_mutated
   directus_comments_mutated(event: EventEnum): directus_comments_mutated
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
-  Calls_mutated(event: EventEnum): Calls_mutated
   Transcripts_mutated(event: EventEnum): Transcripts_mutated
+  Calls_mutated(event: EventEnum): Calls_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""
@@ -121,7 +121,6 @@ type Calls {
   date_updated: Date
   date_updated_func: datetime_functions
   summary: String
-  meeting_uuid: String
   rtms_stream_id: String
   server_urls: String
   started_at: Date
@@ -129,6 +128,7 @@ type Calls {
   ended_at: Date
   ended_at_func: datetime_functions
   generated_title: String
+  meeting_uuid: String
   transcripts(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcripts]
   transcripts_func: count_functions
 }
@@ -155,12 +155,12 @@ type Calls_aggregated_count {
   user_updated: Int
   date_updated: Int
   summary: Int
-  meeting_uuid: Int
   rtms_stream_id: Int
   server_urls: Int
   started_at: Int
   ended_at: Int
   generated_title: Int
+  meeting_uuid: Int
   transcripts: Int
 }
 
@@ -817,12 +817,12 @@ type version_Calls {
   user_updated: JSON
   date_updated: Date
   summary: String
-  meeting_uuid: String
   rtms_stream_id: String
   server_urls: String
   started_at: Date
   ended_at: Date
   generated_title: String
+  meeting_uuid: String
   transcripts: JSON
 }
 
@@ -883,7 +883,6 @@ input Calls_filter {
   date_updated: date_filter_operators
   date_updated_func: datetime_function_filter_operators
   summary: string_filter_operators
-  meeting_uuid: string_filter_operators
   rtms_stream_id: string_filter_operators
   server_urls: string_filter_operators
   started_at: date_filter_operators
@@ -891,6 +890,7 @@ input Calls_filter {
   ended_at: date_filter_operators
   ended_at_func: datetime_function_filter_operators
   generated_title: string_filter_operators
+  meeting_uuid: string_filter_operators
   transcripts: Transcripts_filter
   transcripts_func: count_function_filter_operators
   _and: [Calls_filter]
@@ -910,12 +910,12 @@ input create_Calls_input {
   user_updated: create_directus_users_input
   date_updated: Date
   summary: String
-  meeting_uuid: String
   rtms_stream_id: String
   server_urls: String
   started_at: Date
   ended_at: Date
   generated_title: String
+  meeting_uuid: String
   transcripts: [create_Transcripts_input]
 }
 
@@ -1433,12 +1433,12 @@ input update_Calls_input {
   user_updated: update_directus_users_input
   date_updated: Date
   summary: String
-  meeting_uuid: String
   rtms_stream_id: String
   server_urls: String
   started_at: Date
   ended_at: Date
   generated_title: String
+  meeting_uuid: String
   transcripts: [update_Transcripts_input]
 }
 

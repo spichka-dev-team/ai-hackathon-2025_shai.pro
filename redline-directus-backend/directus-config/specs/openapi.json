@@ -7898,393 +7898,6 @@
         ]
       }
     },
-    "/items/Calls": {
-      "post": {
-        "summary": "Create an Item",
-        "description": "Create a new Calls item.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "createItemsCalls",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Meta"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ItemsCalls"
-                    }
-                  },
-                  {
-                    "$ref": "#/components/schemas/ItemsCalls"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "items": {
-                        "$ref": "#/components/schemas/ItemsCalls"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          }
-        }
-      },
-      "get": {
-        "summary": "List Items",
-        "description": "List the Calls items.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "readItemsCalls",
-        "security": [
-          {
-            "Auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Limit"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "$ref": "#/components/parameters/Offset"
-          },
-          {
-            "$ref": "#/components/parameters/Sort"
-          },
-          {
-            "$ref": "#/components/parameters/Filter"
-          },
-          {
-            "$ref": "#/components/parameters/Search"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "$ref": "#/components/schemas/ItemsCalls"
-                      }
-                    },
-                    "meta": {
-                      "$ref": "#/components/schemas/x-metadata"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update Multiple Items",
-        "description": "Update multiple Calls items at the same time.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "updateItemsCalls",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Limit"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "$ref": "#/components/parameters/Offset"
-          },
-          {
-            "$ref": "#/components/parameters/Sort"
-          },
-          {
-            "$ref": "#/components/parameters/Filter"
-          },
-          {
-            "$ref": "#/components/parameters/Search"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ItemsCalls"
-                    }
-                  },
-                  {
-                    "$ref": "#/components/schemas/ItemsCalls"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "items": {
-                        "$ref": "#/components/schemas/ItemsCalls"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Multiple Items",
-        "description": "Delete multiple existing Calls items.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "deleteItemsCalls",
-        "responses": {
-          "200": {
-            "description": "Successful request"
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          }
-        },
-        "parameters": []
-      }
-    },
-    "/items/Calls/{id}": {
-      "get": {
-        "summary": "Retrieve an Item",
-        "description": "Retrieve a single Calls item by unique identifier.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "readSingleItemsCalls",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "$ref": "#/components/parameters/Version"
-          },
-          {
-            "name": "id",
-            "description": "Index of the item.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "description": "Incremental index of the item.",
-                  "example": 1
-                },
-                {
-                  "type": "string",
-                  "description": "Unique identifier of the item.",
-                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
-                }
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/ItemsCalls"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundError"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update an Item",
-        "description": "Update an existing Calls item.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "updateSingleItemsCalls",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "name": "id",
-            "description": "Index of the item.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "description": "Incremental index of the item.",
-                  "example": 1
-                },
-                {
-                  "type": "string",
-                  "description": "Unique identifier of the item.",
-                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
-                }
-              ]
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "$ref": "#/components/schemas/ItemsCalls"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/ItemsCalls"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete an Item",
-        "description": "Delete an existing Calls item.",
-        "tags": [
-          "Items",
-          "ItemsCalls"
-        ],
-        "operationId": "deleteSingleItemsCalls",
-        "responses": {
-          "200": {
-            "description": "Successful request"
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundError"
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "description": "Index of the item.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "description": "Incremental index of the item.",
-                  "example": 1
-                },
-                {
-                  "type": "string",
-                  "description": "Unique identifier of the item.",
-                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
     "/items/Transcripts": {
       "post": {
         "summary": "Create an Item",
@@ -8671,6 +8284,393 @@
           }
         ]
       }
+    },
+    "/items/Calls": {
+      "post": {
+        "summary": "Create an Item",
+        "description": "Create a new Calls item.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "createItemsCalls",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Meta"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ItemsCalls"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ItemsCalls"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "$ref": "#/components/schemas/ItemsCalls"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "get": {
+        "summary": "List Items",
+        "description": "List the Calls items.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "readItemsCalls",
+        "security": [
+          {
+            "Auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "$ref": "#/components/parameters/Offset"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Filter"
+          },
+          {
+            "$ref": "#/components/parameters/Search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/ItemsCalls"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/x-metadata"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Multiple Items",
+        "description": "Update multiple Calls items at the same time.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "updateItemsCalls",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "$ref": "#/components/parameters/Offset"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Filter"
+          },
+          {
+            "$ref": "#/components/parameters/Search"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ItemsCalls"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ItemsCalls"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "$ref": "#/components/schemas/ItemsCalls"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Multiple Items",
+        "description": "Delete multiple existing Calls items.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "deleteItemsCalls",
+        "responses": {
+          "200": {
+            "description": "Successful request"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/items/Calls/{id}": {
+      "get": {
+        "summary": "Retrieve an Item",
+        "description": "Retrieve a single Calls item by unique identifier.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "readSingleItemsCalls",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          },
+          {
+            "name": "id",
+            "description": "Index of the item.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "Incremental index of the item.",
+                  "example": 1
+                },
+                {
+                  "type": "string",
+                  "description": "Unique identifier of the item.",
+                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/ItemsCalls"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an Item",
+        "description": "Update an existing Calls item.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "updateSingleItemsCalls",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "name": "id",
+            "description": "Index of the item.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "Incremental index of the item.",
+                  "example": 1
+                },
+                {
+                  "type": "string",
+                  "description": "Unique identifier of the item.",
+                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
+                }
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/ItemsCalls"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/ItemsCalls"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an Item",
+        "description": "Delete an existing Calls item.",
+        "tags": [
+          "Items",
+          "ItemsCalls"
+        ],
+        "operationId": "deleteSingleItemsCalls",
+        "responses": {
+          "200": {
+            "description": "Successful request"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Index of the item.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "Incremental index of the item.",
+                  "example": 1
+                },
+                {
+                  "type": "string",
+                  "description": "Unique identifier of the item.",
+                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
+                }
+              ]
+            }
+          }
+        ]
+      }
     }
   },
   "tags": [
@@ -8801,12 +8801,12 @@
       "x-collection": "directus_sync_id_map"
     },
     {
-      "name": "ItemsCalls",
-      "x-collection": "Calls"
-    },
-    {
       "name": "ItemsTranscripts",
       "x-collection": "Transcripts"
+    },
+    {
+      "name": "ItemsCalls",
+      "x-collection": "Calls"
     }
   ],
   "components": {
@@ -10726,108 +10726,6 @@
           "local_id"
         ]
       },
-      "ItemsCalls": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "nullable": false,
-            "type": "string",
-            "format": "uuid"
-          },
-          "status": {
-            "nullable": false,
-            "type": "string"
-          },
-          "sort": {
-            "nullable": true,
-            "type": "integer"
-          },
-          "user_created": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "$ref": "#/components/schemas/Users"
-              }
-            ]
-          },
-          "date_created": {
-            "nullable": true,
-            "type": "string",
-            "format": "timestamp"
-          },
-          "user_updated": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "$ref": "#/components/schemas/Users"
-              }
-            ]
-          },
-          "date_updated": {
-            "nullable": true,
-            "type": "string",
-            "format": "timestamp"
-          },
-          "summary": {
-            "nullable": true,
-            "type": "string"
-          },
-          "meeting_uuid": {
-            "nullable": true,
-            "type": "string",
-            "format": "uuid"
-          },
-          "rtms_stream_id": {
-            "nullable": true,
-            "type": "string"
-          },
-          "server_urls": {
-            "nullable": true,
-            "type": "string"
-          },
-          "started_at": {
-            "nullable": true,
-            "type": "string",
-            "format": "date-time"
-          },
-          "ended_at": {
-            "nullable": true,
-            "type": "string",
-            "format": "date-time"
-          },
-          "generated_title": {
-            "nullable": true,
-            "type": "string"
-          },
-          "transcripts": {
-            "nullable": true,
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                {
-                  "$ref": "#/components/schemas/ItemsTranscripts"
-                }
-              ]
-            }
-          }
-        },
-        "x-collection": "Calls",
-        "required": [
-          "id"
-        ]
-      },
       "ItemsTranscripts": {
         "type": "object",
         "properties": {
@@ -10905,6 +10803,107 @@
           }
         },
         "x-collection": "Transcripts",
+        "required": [
+          "id"
+        ]
+      },
+      "ItemsCalls": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "nullable": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "nullable": false,
+            "type": "string"
+          },
+          "sort": {
+            "nullable": true,
+            "type": "integer"
+          },
+          "user_created": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "$ref": "#/components/schemas/Users"
+              }
+            ]
+          },
+          "date_created": {
+            "nullable": true,
+            "type": "string",
+            "format": "timestamp"
+          },
+          "user_updated": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "$ref": "#/components/schemas/Users"
+              }
+            ]
+          },
+          "date_updated": {
+            "nullable": true,
+            "type": "string",
+            "format": "timestamp"
+          },
+          "summary": {
+            "nullable": true,
+            "type": "string"
+          },
+          "rtms_stream_id": {
+            "nullable": true,
+            "type": "string"
+          },
+          "server_urls": {
+            "nullable": true,
+            "type": "string"
+          },
+          "started_at": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "ended_at": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "generated_title": {
+            "nullable": true,
+            "type": "string"
+          },
+          "meeting_uuid": {
+            "nullable": true,
+            "type": "string"
+          },
+          "transcripts": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "$ref": "#/components/schemas/ItemsTranscripts"
+                }
+              ]
+            }
+          }
+        },
+        "x-collection": "Calls",
         "required": [
           "id"
         ]
