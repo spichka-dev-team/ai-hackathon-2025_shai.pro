@@ -5,7 +5,7 @@
   "meta": {
     "collection": "Calls",
     "conditions": null,
-    "display": null,
+    "display": "related-values",
     "display_options": null,
     "field": "transcripts",
     "group": null,
@@ -15,7 +15,7 @@
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 10,
+    "sort": 16,
     "special": [
       "o2m"
     ],

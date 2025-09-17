@@ -7,7 +7,14 @@
     "presets": null,
     "fields": [
       "transcript",
-      "summary"
+      "summary",
+      "generated_title",
+      "transcripts",
+      "meeting_uuid",
+      "rtms_stream_id",
+      "ended_at",
+      "started_at",
+      "server_urls"
     ],
     "policy": "_sync_default_public_policy",
     "_syncId": "924f0618-5039-43d6-926f-9846572aba51"
@@ -23,7 +30,14 @@
       "date_created",
       "date_updated",
       "transcript",
-      "summary"
+      "summary",
+      "generated_title",
+      "meeting_uuid",
+      "rtms_stream_id",
+      "ended_at",
+      "started_at",
+      "server_urls",
+      "transcripts"
     ],
     "policy": "_sync_default_public_policy",
     "_syncId": "b3a11ff7-12b2-4fb5-8d0c-3699a33cbd9e"
@@ -36,7 +50,14 @@
     "presets": null,
     "fields": [
       "transcript",
-      "summary"
+      "summary",
+      "meeting_uuid",
+      "rtms_stream_id",
+      "generated_title",
+      "ended_at",
+      "started_at",
+      "server_urls",
+      "transcripts"
     ],
     "policy": "_sync_default_public_policy",
     "_syncId": "386ddb15-634d-4834-8ef6-c603281ae523"

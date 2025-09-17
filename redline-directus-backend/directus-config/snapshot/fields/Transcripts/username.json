@@ -1,37 +1,33 @@
 {
-  "collection": "Transcript",
-  "field": "call_id",
-  "type": "uuid",
+  "collection": "Transcripts",
+  "field": "username",
+  "type": "string",
   "meta": {
-    "collection": "Transcript",
+    "collection": "Transcripts",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "call_id",
+    "field": "username",
     "group": null,
     "hidden": false,
-    "interface": "select-dropdown-m2o",
+    "interface": "input",
     "note": null,
-    "options": {
-      "template": "{{id}}"
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 11,
-    "special": [
-      "m2o"
-    ],
+    "sort": 9,
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
     "width": "full"
   },
   "schema": {
-    "name": "call_id",
-    "table": "Transcript",
-    "data_type": "uuid",
+    "name": "username",
+    "table": "Transcripts",
+    "data_type": "character varying",
     "default_value": null,
-    "max_length": null,
+    "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,
@@ -41,7 +37,7 @@
     "is_generated": false,
     "generation_expression": null,
     "has_auto_increment": false,
-    "foreign_key_table": "Calls",
-    "foreign_key_column": "id"
+    "foreign_key_table": null,
+    "foreign_key_column": null
   }
 }

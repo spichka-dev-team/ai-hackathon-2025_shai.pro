@@ -8285,15 +8285,15 @@
         ]
       }
     },
-    "/items/Transcript": {
+    "/items/Transcripts": {
       "post": {
         "summary": "Create an Item",
-        "description": "Create a new Transcript item.",
+        "description": "Create a new Transcripts item.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "createItemsTranscript",
+        "operationId": "createItemsTranscripts",
         "parameters": [
           {
             "$ref": "#/components/parameters/Meta"
@@ -8307,11 +8307,11 @@
                   {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/ItemsTranscript"
+                      "$ref": "#/components/schemas/ItemsTranscripts"
                     }
                   },
                   {
-                    "$ref": "#/components/schemas/ItemsTranscript"
+                    "$ref": "#/components/schemas/ItemsTranscripts"
                   }
                 ]
               }
@@ -8328,7 +8328,7 @@
                   "properties": {
                     "data": {
                       "items": {
-                        "$ref": "#/components/schemas/ItemsTranscript"
+                        "$ref": "#/components/schemas/ItemsTranscripts"
                       }
                     }
                   }
@@ -8343,12 +8343,12 @@
       },
       "get": {
         "summary": "List Items",
-        "description": "List the Transcript items.",
+        "description": "List the Transcripts items.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "readItemsTranscript",
+        "operationId": "readItemsTranscripts",
         "security": [
           {
             "Auth": []
@@ -8389,7 +8389,7 @@
                       "type": "array",
                       "items": {
                         "type": "object",
-                        "$ref": "#/components/schemas/ItemsTranscript"
+                        "$ref": "#/components/schemas/ItemsTranscripts"
                       }
                     },
                     "meta": {
@@ -8407,12 +8407,12 @@
       },
       "patch": {
         "summary": "Update Multiple Items",
-        "description": "Update multiple Transcript items at the same time.",
+        "description": "Update multiple Transcripts items at the same time.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "updateItemsTranscript",
+        "operationId": "updateItemsTranscripts",
         "parameters": [
           {
             "$ref": "#/components/parameters/Fields"
@@ -8444,11 +8444,11 @@
                   {
                     "type": "array",
                     "items": {
-                      "$ref": "#/components/schemas/ItemsTranscript"
+                      "$ref": "#/components/schemas/ItemsTranscripts"
                     }
                   },
                   {
-                    "$ref": "#/components/schemas/ItemsTranscript"
+                    "$ref": "#/components/schemas/ItemsTranscripts"
                   }
                 ]
               }
@@ -8464,7 +8464,7 @@
                   "properties": {
                     "data": {
                       "items": {
-                        "$ref": "#/components/schemas/ItemsTranscript"
+                        "$ref": "#/components/schemas/ItemsTranscripts"
                       }
                     }
                   }
@@ -8476,12 +8476,12 @@
       },
       "delete": {
         "summary": "Delete Multiple Items",
-        "description": "Delete multiple existing Transcript items.",
+        "description": "Delete multiple existing Transcripts items.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "deleteItemsTranscript",
+        "operationId": "deleteItemsTranscripts",
         "responses": {
           "200": {
             "description": "Successful request"
@@ -8493,15 +8493,15 @@
         "parameters": []
       }
     },
-    "/items/Transcript/{id}": {
+    "/items/Transcripts/{id}": {
       "get": {
         "summary": "Retrieve an Item",
-        "description": "Retrieve a single Transcript item by unique identifier.",
+        "description": "Retrieve a single Transcripts item by unique identifier.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "readSingleItemsTranscript",
+        "operationId": "readSingleItemsTranscripts",
         "parameters": [
           {
             "$ref": "#/components/parameters/Fields"
@@ -8543,7 +8543,7 @@
                   "properties": {
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/ItemsTranscript"
+                      "$ref": "#/components/schemas/ItemsTranscripts"
                     }
                   }
                 }
@@ -8560,12 +8560,12 @@
       },
       "patch": {
         "summary": "Update an Item",
-        "description": "Update an existing Transcript item.",
+        "description": "Update an existing Transcripts item.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "updateSingleItemsTranscript",
+        "operationId": "updateSingleItemsTranscripts",
         "parameters": [
           {
             "$ref": "#/components/parameters/Fields"
@@ -8599,7 +8599,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "$ref": "#/components/schemas/ItemsTranscript"
+                "$ref": "#/components/schemas/ItemsTranscripts"
               }
             }
           }
@@ -8614,7 +8614,7 @@
                   "properties": {
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/ItemsTranscript"
+                      "$ref": "#/components/schemas/ItemsTranscripts"
                     }
                   }
                 }
@@ -8631,12 +8631,12 @@
       },
       "delete": {
         "summary": "Delete an Item",
-        "description": "Delete an existing Transcript item.",
+        "description": "Delete an existing Transcripts item.",
         "tags": [
           "Items",
-          "ItemsTranscript"
+          "ItemsTranscripts"
         ],
-        "operationId": "deleteSingleItemsTranscript",
+        "operationId": "deleteSingleItemsTranscripts",
         "responses": {
           "200": {
             "description": "Successful request"
@@ -8805,8 +8805,8 @@
       "x-collection": "Calls"
     },
     {
-      "name": "ItemsTranscript",
-      "x-collection": "Transcript"
+      "name": "ItemsTranscripts",
+      "x-collection": "Transcripts"
     }
   ],
   "components": {
@@ -10817,7 +10817,7 @@
                   "format": "uuid"
                 },
                 {
-                  "$ref": "#/components/schemas/ItemsTranscript"
+                  "$ref": "#/components/schemas/ItemsTranscripts"
                 }
               ]
             }
@@ -10828,7 +10828,7 @@
           "id"
         ]
       },
-      "ItemsTranscript": {
+      "ItemsTranscripts": {
         "type": "object",
         "properties": {
           "id": {
@@ -10904,7 +10904,7 @@
             ]
           }
         },
-        "x-collection": "Transcript",
+        "x-collection": "Transcripts",
         "required": [
           "id"
         ]

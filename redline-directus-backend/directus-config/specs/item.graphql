@@ -7,10 +7,10 @@ type Query {
   Calls_by_id(id: ID!, version: String): Calls
   Calls_aggregated(groupBy: [String], filter: Calls_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Calls_aggregated!]!
   Calls_by_version(version: String!, id: ID!): version_Calls
-  Transcript(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcript!]!
-  Transcript_by_id(id: ID!, version: String): Transcript
-  Transcript_aggregated(groupBy: [String], filter: Transcript_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Transcript_aggregated!]!
-  Transcript_by_version(version: String!, id: ID!): version_Transcript
+  Transcripts(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcripts!]!
+  Transcripts_by_id(id: ID!, version: String): Transcripts
+  Transcripts_aggregated(groupBy: [String], filter: Transcripts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Transcripts_aggregated!]!
+  Transcripts_by_version(version: String!, id: ID!): version_Transcripts
 }
 
 type Mutation {
@@ -18,23 +18,23 @@ type Mutation {
   create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
   create_Calls_items(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Calls_input!]): [Calls!]!
   create_Calls_item(data: create_Calls_input!): Calls
-  create_Transcript_items(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Transcript_input!]): [Transcript!]!
-  create_Transcript_item(data: create_Transcript_input!): Transcript
+  create_Transcripts_items(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Transcripts_input!]): [Transcripts!]!
+  create_Transcripts_item(data: create_Transcripts_input!): Transcripts
   update_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_directus_sync_id_map_input!): [directus_sync_id_map!]!
   update_directus_sync_id_map_batch(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_directus_sync_id_map_input!]): [directus_sync_id_map!]!
   update_directus_sync_id_map_item(id: ID!, data: update_directus_sync_id_map_input!): directus_sync_id_map
   update_Calls_items(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Calls_input!): [Calls!]!
   update_Calls_batch(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Calls_input!]): [Calls!]!
   update_Calls_item(id: ID!, data: update_Calls_input!): Calls
-  update_Transcript_items(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Transcript_input!): [Transcript!]!
-  update_Transcript_batch(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Transcript_input!]): [Transcript!]!
-  update_Transcript_item(id: ID!, data: update_Transcript_input!): Transcript
+  update_Transcripts_items(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Transcripts_input!): [Transcripts!]!
+  update_Transcripts_batch(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Transcripts_input!]): [Transcripts!]!
+  update_Transcripts_item(id: ID!, data: update_Transcripts_input!): Transcripts
   delete_directus_sync_id_map_items(ids: [ID]!): delete_many
   delete_directus_sync_id_map_item(id: ID!): delete_one
   delete_Calls_items(ids: [ID]!): delete_many
   delete_Calls_item(id: ID!): delete_one
-  delete_Transcript_items(ids: [ID]!): delete_many
-  delete_Transcript_item(id: ID!): delete_one
+  delete_Transcripts_items(ids: [ID]!): delete_many
+  delete_Transcripts_item(id: ID!): delete_one
 }
 
 type Subscription {
@@ -61,7 +61,7 @@ type Subscription {
   directus_comments_mutated(event: EventEnum): directus_comments_mutated
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   Calls_mutated(event: EventEnum): Calls_mutated
-  Transcript_mutated(event: EventEnum): Transcript_mutated
+  Transcripts_mutated(event: EventEnum): Transcripts_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""
@@ -129,7 +129,7 @@ type Calls {
   ended_at: Date
   ended_at_func: datetime_functions
   generated_title: String
-  transcripts(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcript]
+  transcripts(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcripts]
   transcripts_func: count_functions
 }
 
@@ -753,7 +753,7 @@ type directus_webhooks_mutated {
   data: directus_webhooks
 }
 
-type Transcript {
+type Transcripts {
   id: ID!
   status: String
   sort: Int
@@ -770,20 +770,20 @@ type Transcript {
   call_id(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): Calls
 }
 
-type Transcript_aggregated {
+type Transcripts_aggregated {
   group: JSON
   countAll: Int
-  count: Transcript_aggregated_count
-  countDistinct: Transcript_aggregated_count
-  avg: Transcript_aggregated_fields
-  sum: Transcript_aggregated_fields
-  avgDistinct: Transcript_aggregated_fields
-  sumDistinct: Transcript_aggregated_fields
-  min: Transcript_aggregated_fields
-  max: Transcript_aggregated_fields
+  count: Transcripts_aggregated_count
+  countDistinct: Transcripts_aggregated_count
+  avg: Transcripts_aggregated_fields
+  sum: Transcripts_aggregated_fields
+  avgDistinct: Transcripts_aggregated_fields
+  sumDistinct: Transcripts_aggregated_fields
+  min: Transcripts_aggregated_fields
+  max: Transcripts_aggregated_fields
 }
 
-type Transcript_aggregated_count {
+type Transcripts_aggregated_count {
   id: Int
   status: Int
   sort: Int
@@ -797,14 +797,14 @@ type Transcript_aggregated_count {
   call_id: Int
 }
 
-type Transcript_aggregated_fields {
+type Transcripts_aggregated_fields {
   sort: Float
 }
 
-type Transcript_mutated {
+type Transcripts_mutated {
   key: ID!
   event: EventEnum
-  data: Transcript
+  data: Transcripts
 }
 
 """"""
@@ -836,7 +836,7 @@ type version_directus_sync_id_map {
 }
 
 """"""
-type version_Transcript {
+type version_Transcripts {
   id: ID
   status: String
   sort: Int
@@ -891,7 +891,7 @@ input Calls_filter {
   ended_at: date_filter_operators
   ended_at_func: datetime_function_filter_operators
   generated_title: string_filter_operators
-  transcripts: Transcript_filter
+  transcripts: Transcripts_filter
   transcripts_func: count_function_filter_operators
   _and: [Calls_filter]
   _or: [Calls_filter]
@@ -916,7 +916,7 @@ input create_Calls_input {
   started_at: Date
   ended_at: Date
   generated_title: String
-  transcripts: [create_Transcript_input]
+  transcripts: [create_Transcripts_input]
 }
 
 input create_directus_access_input {
@@ -1038,7 +1038,7 @@ input create_directus_users_input {
   policies: [create_directus_access_input]
 }
 
-input create_Transcript_input {
+input create_Transcripts_input {
   id: ID
   status: String
   sort: Int
@@ -1405,7 +1405,7 @@ input string_filter_operators {
   _nempty: Boolean
 }
 
-input Transcript_filter {
+input Transcripts_filter {
   id: string_filter_operators
   status: string_filter_operators
   sort: number_filter_operators
@@ -1420,8 +1420,8 @@ input Transcript_filter {
   username: string_filter_operators
   message: string_filter_operators
   call_id: Calls_filter
-  _and: [Transcript_filter]
-  _or: [Transcript_filter]
+  _and: [Transcripts_filter]
+  _or: [Transcripts_filter]
 }
 
 input update_Calls_input {
@@ -1439,7 +1439,7 @@ input update_Calls_input {
   started_at: Date
   ended_at: Date
   generated_title: String
-  transcripts: [update_Transcript_input]
+  transcripts: [update_Transcripts_input]
 }
 
 input update_directus_access_input {
@@ -1561,7 +1561,7 @@ input update_directus_users_input {
   policies: [update_directus_access_input]
 }
 
-input update_Transcript_input {
+input update_Transcripts_input {
   id: ID
   status: String
   sort: Int

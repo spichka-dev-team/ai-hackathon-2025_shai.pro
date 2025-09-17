@@ -264,7 +264,7 @@ type Subscription {
   directus_comments_mutated(event: EventEnum): directus_comments_mutated
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   Calls_mutated(event: EventEnum): Calls_mutated
-  Transcript_mutated(event: EventEnum): Transcript_mutated
+  Transcripts_mutated(event: EventEnum): Transcripts_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""
@@ -354,7 +354,7 @@ type Calls {
   ended_at: Date
   ended_at_func: datetime_functions
   generated_title: String
-  transcripts(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcript]
+  transcripts(filter: Transcripts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcripts]
   transcripts_func: count_functions
 }
 
@@ -1662,7 +1662,7 @@ type server_info_rate_limit {
   duration: Int
 }
 
-type Transcript {
+type Transcripts {
   id: ID!
   status: String
   sort: Int
@@ -1679,10 +1679,10 @@ type Transcript {
   call_id(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): Calls
 }
 
-type Transcript_mutated {
+type Transcripts_mutated {
   key: ID!
   event: EventEnum
-  data: Transcript
+  data: Transcripts
 }
 
 type users_me_tfa_generate_data {
@@ -1731,7 +1731,7 @@ input Calls_filter {
   ended_at: date_filter_operators
   ended_at_func: datetime_function_filter_operators
   generated_title: string_filter_operators
-  transcripts: Transcript_filter
+  transcripts: Transcripts_filter
   transcripts_func: count_function_filter_operators
   _and: [Calls_filter]
   _or: [Calls_filter]
@@ -2572,7 +2572,7 @@ input string_filter_operators {
   _nempty: Boolean
 }
 
-input Transcript_filter {
+input Transcripts_filter {
   id: string_filter_operators
   status: string_filter_operators
   sort: number_filter_operators
@@ -2587,8 +2587,8 @@ input Transcript_filter {
   username: string_filter_operators
   message: string_filter_operators
   call_id: Calls_filter
-  _and: [Transcript_filter]
-  _or: [Transcript_filter]
+  _and: [Transcripts_filter]
+  _or: [Transcripts_filter]
 }
 
 input update_directus_access_input {

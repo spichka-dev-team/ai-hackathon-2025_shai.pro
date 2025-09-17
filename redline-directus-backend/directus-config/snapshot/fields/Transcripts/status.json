@@ -1,9 +1,9 @@
 {
-  "collection": "Transcript",
+  "collection": "Transcripts",
   "field": "status",
   "type": "string",
   "meta": {
-    "collection": "Transcript",
+    "collection": "Transcripts",
     "conditions": null,
     "display": "labels",
     "display_options": {
@@ -67,7 +67,7 @@
   },
   "schema": {
     "name": "status",
-    "table": "Transcript",
+    "table": "Transcripts",
     "data_type": "character varying",
     "default_value": "draft",
     "max_length": 255,

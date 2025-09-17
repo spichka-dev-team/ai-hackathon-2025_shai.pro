@@ -1,12 +1,12 @@
 {
-  "collection": "Transcript",
+  "collection": "Transcripts",
   "meta": {
     "accountability": "all",
     "archive_app_filter": true,
     "archive_field": "status",
     "archive_value": "archived",
     "collapse": "open",
-    "collection": "Transcript",
+    "collection": "Transcripts",
     "color": null,
     "display_template": null,
     "group": null,
@@ -23,6 +23,6 @@
     "versioning": false
   },
   "schema": {
-    "name": "Transcript"
+    "name": "Transcripts"
   }
 }

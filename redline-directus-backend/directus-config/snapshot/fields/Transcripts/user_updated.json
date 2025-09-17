@@ -1,9 +1,9 @@
 {
-  "collection": "Transcript",
+  "collection": "Transcripts",
   "field": "user_updated",
   "type": "uuid",
   "meta": {
-    "collection": "Transcript",
+    "collection": "Transcripts",
     "conditions": null,
     "display": "user",
     "display_options": null,
@@ -28,7 +28,7 @@
   },
   "schema": {
     "name": "user_updated",
-    "table": "Transcript",
+    "table": "Transcripts",
     "data_type": "uuid",
     "default_value": null,
     "max_length": null,

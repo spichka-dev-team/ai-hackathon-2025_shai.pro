@@ -1,35 +1,31 @@
 {
-  "collection": "Transcript",
-  "field": "date_updated",
-  "type": "timestamp",
+  "collection": "Transcripts",
+  "field": "message",
+  "type": "text",
   "meta": {
-    "collection": "Transcript",
+    "collection": "Transcripts",
     "conditions": null,
-    "display": "datetime",
-    "display_options": {
-      "relative": true
-    },
-    "field": "date_updated",
+    "display": null,
+    "display_options": null,
+    "field": "message",
     "group": null,
-    "hidden": true,
-    "interface": "datetime",
+    "hidden": false,
+    "interface": "input-multiline",
     "note": null,
     "options": null,
-    "readonly": true,
+    "readonly": false,
     "required": false,
-    "sort": 7,
-    "special": [
-      "date-updated"
-    ],
+    "sort": 10,
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "half"
+    "width": "full"
   },
   "schema": {
-    "name": "date_updated",
-    "table": "Transcript",
-    "data_type": "timestamp with time zone",
+    "name": "message",
+    "table": "Transcripts",
+    "data_type": "text",
     "default_value": null,
     "max_length": null,
     "numeric_precision": null,
