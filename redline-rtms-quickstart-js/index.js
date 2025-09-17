@@ -1,3 +1,5 @@
+// Load environment variables from .env (works under PM2 as well)
+import "dotenv/config";
 // Import the RTMS SDK
 import rtms from "@zoom/rtms";
 
@@ -16,7 +18,15 @@ const TRANSCRIPT_COLLECTION = process.env.TRANSCRIPT_COLLECTION || "Transcripts"
 
 // In-memory meeting state
 const clients = new Map(); // streamId -> client
-const meetingState = new Map(); // streamId -> { callId, lines: [] }
+// meetingState value shape:
+// {
+//   callId: string|null,
+//   lines: Array<{timestamp:any,userName:string,message:string}>,
+//   payload: any,                 // original webhook payload for retries
+//   flushedCount: number,         // number of lines already posted to backend
+//   createInFlight: boolean,      // prevent duplicate create attempts
+// }
+const meetingState = new Map();
 
 function toIsoTimestamp(raw) {
   // Heuristic normalization: ns -> µs -> ms
@@ -35,8 +45,8 @@ function makeHeaders() {
 
 async function backendRequest(path, method, body) {
   if (!BACKEND_BASE_URL) {
-    console.warn("[backend] BACKEND_BASE_URL not set; skipping", method, path);
-    return null;
+  console.error("[backend] BACKEND_BASE_URL not set; cannot call", method, path);
+  throw new Error("BACKEND_BASE_URL not set");
   }
   const url = `${BACKEND_BASE_URL}${path}`;
   const res = await fetchFn(url, {
@@ -62,6 +72,44 @@ async function createCall(payload) {
     started_at: new Date().toISOString(),
   };
   return backendRequest(`/items/${CALLS_COLLECTION}`, "POST", body);
+}
+
+async function ensureCall(streamId) {
+  const state = meetingState.get(streamId);
+  if (!state) return null;
+  if (state.callId) return state.callId;
+  if (state.createInFlight) return null;
+  state.createInFlight = true;
+  try {
+    const created = await createCall(state.payload || {});
+    const callId = created?.data?.id || created?.id || created?.data || null;
+    state.callId = callId;
+    console.log(`[backend] Calls POST success (retry): id=${callId ?? "<none>"}`);
+    // Try flushing any buffered lines now that call exists
+    await flushBufferedTranscripts(streamId);
+    return callId;
+  } catch (e) {
+    console.warn("[backend] retry create call failed:", e.message);
+    return null;
+  } finally {
+    state.createInFlight = false;
+  }
+}
+
+async function flushBufferedTranscripts(streamId) {
+  const state = meetingState.get(streamId);
+  if (!state?.callId) return;
+  const start = state.flushedCount || 0;
+  for (let i = start; i < state.lines.length; i++) {
+    const { timestamp, userName, message } = state.lines[i];
+    try {
+      await appendTranscript(state.callId, { timestamp, userName, message });
+      state.flushedCount = i + 1;
+    } catch (e) {
+      console.warn("[backend] flush transcript failed:", e.message);
+      break; // stop on first failure to avoid tight loop
+    }
+  }
 }
 
 async function appendTranscript(callId, { timestamp, userName, message }) {
@@ -109,10 +157,17 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
       console.log(`[rtms] meeting.rtms_stopped for unknown stream: ${streamId}`);
     } else {
       try {
+        // Ensure call exists and flush any pending transcripts before finalizing
+        if (!state?.callId) {
+          await ensureCall(streamId);
+        }
         if (state?.callId) {
+          await flushBufferedTranscripts(streamId);
           const lines = Array.isArray(state.lines) ? state.lines : [];
           await finalizeCall(state.callId, lines);
           console.log(`[backend] finalized call ${state.callId} (${lines.length} lines)`);
+        } else {
+          console.warn("[backend] cannot finalize: callId still missing");
         }
       } catch (e) {
         console.error("[backend] finalize error:", e.message);
@@ -138,10 +193,22 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
   try {
     const created = await createCall(payload);
     const callId = created?.data?.id || created?.id || created?.data || null;
-    meetingState.set(streamId, { callId, lines: [] });
+    meetingState.set(streamId, {
+      callId,
+      lines: [],
+      payload,
+      flushedCount: 0,
+      createInFlight: false,
+    });
   console.log(`[backend] Calls POST success: id=${callId ?? "<none>"}`);
   } catch (e) {
-    meetingState.set(streamId, { callId: null, lines: [] });
+    meetingState.set(streamId, {
+      callId: null,
+      lines: [],
+      payload,
+      flushedCount: 0,
+      createInFlight: false,
+    });
     console.warn("[backend] create call failed:", e.message);
   }
 
@@ -154,11 +221,18 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
     const state = meetingState.get(streamId);
     if (state) state.lines.push({ timestamp, userName, message });
 
-    // POST Transcript row to backend (fire-and-forget)
-    try {
-      await appendTranscript(state?.callId, { timestamp, userName, message });
-    } catch (e) {
-      console.warn("[backend] append transcript failed:", e.message);
+    // POST Transcript row or buffer + retry create if needed
+    if (!state?.callId) {
+      // Attempt to create the call (retry) and flush buffer
+      await ensureCall(streamId);
+      await flushBufferedTranscripts(streamId);
+    } else {
+      try {
+        await appendTranscript(state.callId, { timestamp, userName, message });
+        state.flushedCount = (state.flushedCount || 0) + 1;
+      } catch (e) {
+        console.warn("[backend] append transcript failed:", e.message);
+      }
     }
   });
 
