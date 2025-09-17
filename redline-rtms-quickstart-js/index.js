@@ -15,8 +15,8 @@ const CALLS_COLLECTION = process.env.CALLS_COLLECTION || "Calls";
 const TRANSCRIPT_COLLECTION = process.env.TRANSCRIPT_COLLECTION || "Transcripts";
 
 // In-memory meeting state
-let clients = new Map(); // streamId -> client
-let meetingState = new Map(); // streamId -> { callId, lines: [] }
+const clients = new Map(); // streamId -> client
+const meetingState = new Map(); // streamId -> { callId, lines: [] }
 
 function toIsoTimestamp(raw) {
   // Heuristic normalization: ns -> µs -> ms
@@ -27,63 +27,63 @@ function toIsoTimestamp(raw) {
   return new Date(n).toISOString(); // assume ms
 }
 
+function makeHeaders() {
+  const headers = { "Content-Type": "application/json" };
+  if (BACKEND_AUTH_TOKEN) headers["Authorization"] = `Bearer ${BACKEND_AUTH_TOKEN}`;
+  return headers;
+}
+
 async function backendRequest(path, method, body) {
   if (!BACKEND_BASE_URL) {
-    console.warn("BACKEND_BASE_URL not set; skipping backend POST");
+    console.warn("[backend] BACKEND_BASE_URL not set; skipping", method, path);
     return null;
   }
   const url = `${BACKEND_BASE_URL}${path}`;
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  if (BACKEND_AUTH_TOKEN) {
-    headers["Authorization"] = `Bearer ${BACKEND_AUTH_TOKEN}`;
-  }
   const res = await fetchFn(url, {
     method,
-    headers,
+    headers: makeHeaders(),
     body: body ? JSON.stringify(body) : undefined,
   });
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    throw new Error(`Backend ${method} ${url} failed: ${res.status} ${res.statusText} ${text}`);
+    throw new Error(`[backend] ${method} ${url} failed: ${res.status} ${res.statusText} ${text}`);
   }
-  const contentType = res.headers.get("content-type") || "";
-  return contentType.includes("application/json") ? res.json() : res.text();
+  const ctype = res.headers.get("content-type") || "";
+  return ctype.includes("application/json") ? res.json() : res.text();
 }
 
 async function createCall(payload) {
-  // Minimal fields we know exist: transcript (text), summary (text)
-  // We'll store basic context in transcript initially.
-  const initTranscript = `RTMS started for meeting ${payload.meeting_uuid} (stream ${payload.rtms_stream_id})`;
   const body = {
-    transcript: initTranscript,
-    summary: null,
     meeting_uuid: payload.meeting_uuid || null,
     rtms_stream_id: payload.rtms_stream_id || null,
     server_urls: Array.isArray(payload.server_urls)
       ? payload.server_urls.join(",")
-      : (payload.server_urls || null),
+      : payload.server_urls || null,
     started_at: new Date().toISOString(),
   };
-  // Directus create item endpoint
   return backendRequest(`/items/${CALLS_COLLECTION}`, "POST", body);
 }
 
 async function appendTranscript(callId, { timestamp, userName, message }) {
-  // Create Transcript item; schema fields: timestamp, username, message
+  if (!callId) {
+    console.warn("[backend] skip transcript append: missing callId");
+    return null;
+  }
   const body = {
     timestamp: toIsoTimestamp(timestamp),
     username: userName || "unknown",
     message,
-    // Link to parent Call via M2O
-    call_id: callId || null,
+    call_id: callId,
   };
-  return backendRequest(`/items/${TRANSCRIPT_COLLECTION}`, "POST", body);
+  const resp = await backendRequest(`/items/${TRANSCRIPT_COLLECTION}`, "POST", body);
+  const trId = resp?.data?.id || resp?.id || resp?.data || null;
+  console.log(`[backend] Transcripts POST success: id=${trId ?? "<none>"} call_id=${callId}`);
+  return resp;
 }
 
 async function finalizeCall(callId, lines) {
-  const aggregated = lines
+  if (!callId) return null;
+  const aggregated = (Array.isArray(lines) ? lines : [])
     .map((l) => `[${toIsoTimestamp(l.timestamp)}] -- ${l.userName}: ${l.message}`)
     .join("\n");
   const body = {
@@ -99,24 +99,24 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
 
   if (event === "meeting.rtms_stopped") {
     if (!streamId) {
-      console.log(`Received meeting.rtms_stopped event without stream ID`);
+      console.log(`[rtms] meeting.rtms_stopped without stream ID`);
       return;
     }
 
     const client = clients.get(streamId);
     const state = meetingState.get(streamId);
     if (!client) {
-      console.log(`Received meeting.rtms_stopped for unknown stream ID: ${streamId}`);
+      console.log(`[rtms] meeting.rtms_stopped for unknown stream: ${streamId}`);
     } else {
       try {
-        if (state?.callId && state?.lines?.length) {
-          await finalizeCall(state.callId, state.lines);
-          console.log(`Finalized call ${state.callId} with ${state.lines.length} transcript lines`);
+        if (state?.callId) {
+          const lines = Array.isArray(state.lines) ? state.lines : [];
+          await finalizeCall(state.callId, lines);
+          console.log(`[backend] finalized call ${state.callId} (${lines.length} lines)`);
         }
       } catch (e) {
-        console.error("Failed to finalize call:", e.message);
+        console.error("[backend] finalize error:", e.message);
       }
-
       client.leave();
     }
 
@@ -126,7 +126,7 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
   }
 
   if (event !== "meeting.rtms_started") {
-    console.log(`Ignoring unknown event: ${event}`);
+    console.log(`[rtms] ignoring event: ${event}`);
     return;
   }
 
@@ -139,10 +139,10 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
     const created = await createCall(payload);
     const callId = created?.data?.id || created?.id || created?.data || null;
     meetingState.set(streamId, { callId, lines: [] });
-    console.log(`Created call record: ${callId ?? "<none>"}`);
+  console.log(`[backend] Calls POST success: id=${callId ?? "<none>"}`);
   } catch (e) {
     meetingState.set(streamId, { callId: null, lines: [] });
-    console.warn("Could not create call record:", e.message);
+    console.warn("[backend] create call failed:", e.message);
   }
 
   client.onTranscriptData(async (data, size, timestamp, metadata) => {
@@ -154,11 +154,11 @@ rtms.onWebhookEvent(async ({ event, payload }) => {
     const state = meetingState.get(streamId);
     if (state) state.lines.push({ timestamp, userName, message });
 
-  // POST Transcript row to backend (fire-and-forget)
+    // POST Transcript row to backend (fire-and-forget)
     try {
       await appendTranscript(state?.callId, { timestamp, userName, message });
     } catch (e) {
-      console.warn("Failed to append transcript:", e.message);
+      console.warn("[backend] append transcript failed:", e.message);
     }
   });
 
