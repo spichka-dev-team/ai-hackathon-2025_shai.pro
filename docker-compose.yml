@@ -71,7 +71,7 @@ services:
 
   directus-sync:
     build:
-      context: ./directus-sync
+      context: ./redline-directus-backend/directus-sync
       dockerfile: Dockerfile.prod
     image: local/directus-sync:3.3.0
     container_name: directus-sync_prod
