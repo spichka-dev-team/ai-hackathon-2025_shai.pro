@@ -1,0 +1,26 @@
+.root {
+  @apply min-h-screen;
+}
+
+.content {
+  @apply flex;
+}
+
+.main {
+  @apply flex-1 p-6 relative;
+}
+
+.main::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 200px;
+  background: rgba(243, 67, 57, 0.5);
+  filter: blur(200px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+

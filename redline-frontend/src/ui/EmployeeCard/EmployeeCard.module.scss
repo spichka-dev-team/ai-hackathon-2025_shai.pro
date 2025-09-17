@@ -1,0 +1,21 @@
+.root {
+  @apply flex flex-row items-center gap-4 rounded-3xl p-4 bg-white/40;
+}
+
+.avatar {
+  @apply h-12 w-12 rounded-full object-cover shrink-0;
+}
+
+.text {
+  @apply flex flex-col gap-0;
+}
+
+.name {
+  @apply font-sans font-medium text-[18px] leading-6 tracking-normal align-middle;
+}
+
+.position {
+  @apply font-sans font-normal text-[12px] leading-4 tracking-normal align-middle;
+}
+
+

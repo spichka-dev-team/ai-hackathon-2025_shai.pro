@@ -1,0 +1,60 @@
+.center {
+  @apply flex justify-center;
+}
+
+.hint {
+  @apply px-4 py-8 bg-white/40 font-sans font-medium text-[18px] text-center;
+}
+
+.section {
+  @apply space-y-4;
+}
+
+.parent {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.card {
+  @apply rounded-2xl bg-white/40 p-4;
+}
+
+.div1 {
+  grid-column: span 4 / span 4;
+  height: 324px;
+}
+
+.div2 {
+  grid-column-start: 4;
+  grid-row-start: 2;
+}
+
+.div3 {
+  grid-column: span 3 / span 3;
+  grid-column-start: 1;
+  grid-row-start: 2;
+}
+
+.userHeader {
+  @apply h-full flex flex-col items-center justify-center gap-4;
+}
+
+.userAvatarLg {
+  @apply h-[200px] w-[200px] rounded-full object-cover shrink-0;
+}
+
+.userText {
+  @apply flex flex-col items-center gap-1 text-center;
+}
+
+.userNameLg {
+  @apply font-sans font-semibold text-[24px] leading-8;
+}
+
+.userPositionLg {
+  @apply font-sans font-normal text-[14px] leading-5 text-gray-700;
+}
+
+
