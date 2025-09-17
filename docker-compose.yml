@@ -84,7 +84,7 @@ services:
     volumes:
       # or in Dockerfile: COPY directus-sync.config.js /work/directus-sync.config.js
       #- ./directus-sync/directus-sync.config.js:/work/directus-sync.config.js:ro
-      - ./redline-directus-backend/directus-config:/work/directus-config   # <── Mounts host ./directus-config
+      - ./directus-config:/work/directus-config   # <── Mounts host ./directus-config
     working_dir: /work
     entrypoint: ["directus-sync"]
     profiles:
