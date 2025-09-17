@@ -61,5 +61,53 @@
     ],
     "policy": "_sync_default_public_policy",
     "_syncId": "386ddb15-634d-4834-8ef6-c603281ae523"
+  },
+  {
+    "collection": "Transcripts",
+    "action": "create",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "call_id",
+      "message",
+      "username",
+      "timestamp"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "9a38abea-1206-4b53-aa7f-e621e5ed265e"
+  },
+  {
+    "collection": "Transcripts",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "id",
+      "date_created",
+      "date_updated",
+      "timestamp",
+      "username",
+      "call_id",
+      "message"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "c97bc250-9a39-4c66-9f9c-70fbff623583"
+  },
+  {
+    "collection": "Transcripts",
+    "action": "update",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "call_id",
+      "message",
+      "timestamp",
+      "username"
+    ],
+    "policy": "_sync_default_public_policy",
+    "_syncId": "f3925d3b-492d-4a61-b5e9-d7674cd169f2"
   }
 ]
