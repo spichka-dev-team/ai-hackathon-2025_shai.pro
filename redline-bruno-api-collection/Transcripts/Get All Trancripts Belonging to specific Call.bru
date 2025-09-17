@@ -1,0 +1,15 @@
+meta {
+  name: Get All Trancripts Belonging to specific Call
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/items/Transcripts
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
