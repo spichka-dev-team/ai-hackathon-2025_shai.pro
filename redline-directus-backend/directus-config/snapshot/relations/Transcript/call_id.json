@@ -1,0 +1,25 @@
+{
+  "collection": "Transcript",
+  "field": "call_id",
+  "related_collection": "Calls",
+  "meta": {
+    "junction_field": null,
+    "many_collection": "Transcript",
+    "many_field": "call_id",
+    "one_allowed_collections": null,
+    "one_collection": "Calls",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "transcripts",
+    "sort_field": null
+  },
+  "schema": {
+    "table": "Transcript",
+    "column": "call_id",
+    "foreign_key_table": "Calls",
+    "foreign_key_column": "id",
+    "constraint_name": "transcript_call_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

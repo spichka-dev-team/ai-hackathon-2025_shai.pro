@@ -10776,13 +10776,51 @@
             "type": "string",
             "format": "timestamp"
           },
-          "transcript": {
-            "nullable": true,
-            "type": "string"
-          },
           "summary": {
             "nullable": true,
             "type": "string"
+          },
+          "meeting_uuid": {
+            "nullable": true,
+            "type": "string",
+            "format": "uuid"
+          },
+          "rtms_stream_id": {
+            "nullable": true,
+            "type": "string"
+          },
+          "server_urls": {
+            "nullable": true,
+            "type": "string"
+          },
+          "started_at": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "ended_at": {
+            "nullable": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          "generated_title": {
+            "nullable": true,
+            "type": "string"
+          },
+          "transcripts": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                {
+                  "$ref": "#/components/schemas/ItemsTranscript"
+                }
+              ]
+            }
           }
         },
         "x-collection": "Calls",
@@ -10852,6 +10890,18 @@
           "message": {
             "nullable": true,
             "type": "string"
+          },
+          "call_id": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "$ref": "#/components/schemas/ItemsCalls"
+              }
+            ]
           }
         },
         "x-collection": "Transcript",

@@ -120,8 +120,17 @@ type Calls {
   user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
   date_updated: Date
   date_updated_func: datetime_functions
-  transcript: String
   summary: String
+  meeting_uuid: String
+  rtms_stream_id: String
+  server_urls: String
+  started_at: Date
+  started_at_func: datetime_functions
+  ended_at: Date
+  ended_at_func: datetime_functions
+  generated_title: String
+  transcripts(filter: Transcript_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Transcript]
+  transcripts_func: count_functions
 }
 
 type Calls_aggregated {
@@ -145,8 +154,14 @@ type Calls_aggregated_count {
   date_created: Int
   user_updated: Int
   date_updated: Int
-  transcript: Int
   summary: Int
+  meeting_uuid: Int
+  rtms_stream_id: Int
+  server_urls: Int
+  started_at: Int
+  ended_at: Int
+  generated_title: Int
+  transcripts: Int
 }
 
 type Calls_aggregated_fields {
@@ -752,6 +767,7 @@ type Transcript {
   timestamp_func: datetime_functions
   username: String
   message: String
+  call_id(filter: Calls_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): Calls
 }
 
 type Transcript_aggregated {
@@ -778,6 +794,7 @@ type Transcript_aggregated_count {
   timestamp: Int
   username: Int
   message: Int
+  call_id: Int
 }
 
 type Transcript_aggregated_fields {
@@ -799,8 +816,14 @@ type version_Calls {
   date_created: Date
   user_updated: JSON
   date_updated: Date
-  transcript: String
   summary: String
+  meeting_uuid: String
+  rtms_stream_id: String
+  server_urls: String
+  started_at: Date
+  ended_at: Date
+  generated_title: String
+  transcripts: JSON
 }
 
 """"""
@@ -824,6 +847,7 @@ type version_Transcript {
   timestamp: Date
   username: String
   message: String
+  call_id: JSON
 }
 
 input big_int_filter_operators {
@@ -858,8 +882,17 @@ input Calls_filter {
   user_updated: directus_users_filter
   date_updated: date_filter_operators
   date_updated_func: datetime_function_filter_operators
-  transcript: string_filter_operators
   summary: string_filter_operators
+  meeting_uuid: string_filter_operators
+  rtms_stream_id: string_filter_operators
+  server_urls: string_filter_operators
+  started_at: date_filter_operators
+  started_at_func: datetime_function_filter_operators
+  ended_at: date_filter_operators
+  ended_at_func: datetime_function_filter_operators
+  generated_title: string_filter_operators
+  transcripts: Transcript_filter
+  transcripts_func: count_function_filter_operators
   _and: [Calls_filter]
   _or: [Calls_filter]
 }
@@ -876,8 +909,14 @@ input create_Calls_input {
   date_created: Date
   user_updated: create_directus_users_input
   date_updated: Date
-  transcript: String
   summary: String
+  meeting_uuid: String
+  rtms_stream_id: String
+  server_urls: String
+  started_at: Date
+  ended_at: Date
+  generated_title: String
+  transcripts: [create_Transcript_input]
 }
 
 input create_directus_access_input {
@@ -1010,6 +1049,7 @@ input create_Transcript_input {
   timestamp: Date
   username: String
   message: String
+  call_id: create_Calls_input
 }
 
 input date_filter_operators {
@@ -1379,6 +1419,7 @@ input Transcript_filter {
   timestamp_func: datetime_function_filter_operators
   username: string_filter_operators
   message: string_filter_operators
+  call_id: Calls_filter
   _and: [Transcript_filter]
   _or: [Transcript_filter]
 }
@@ -1391,8 +1432,14 @@ input update_Calls_input {
   date_created: Date
   user_updated: update_directus_users_input
   date_updated: Date
-  transcript: String
   summary: String
+  meeting_uuid: String
+  rtms_stream_id: String
+  server_urls: String
+  started_at: Date
+  ended_at: Date
+  generated_title: String
+  transcripts: [update_Transcript_input]
 }
 
 input update_directus_access_input {
@@ -1525,4 +1572,5 @@ input update_Transcript_input {
   timestamp: Date
   username: String
   message: String
+  call_id: update_Calls_input
 }
