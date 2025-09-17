@@ -68,3 +68,27 @@ services:
       retries: 30
     networks:
       - redline-network
+
+  directus-sync:
+    build:
+      context: ./redline-directus-backend/directus-sync
+      dockerfile: Dockerfile.prod
+    #image: ./directus-sync:3.3.0
+    container_name: directus-sync_prod
+    depends_on:
+      directus:
+        condition: service_healthy
+    environment:
+      DIRECTUS_ADMIN_EMAIL: ${DIRECTUS_EMAIL_SYNC}
+      DIRECTUS_ADMIN_PASSWORD: ${DIRECTUS_PASSWORD_SYNC}
+      DIRECTUS_URL_SYNC: ${DIRECTUS_URL_SYNC}
+    volumes:
+      # or in Dockerfile: COPY directus-sync.config.js /work/directus-sync.config.js
+      #- ./directus-sync/directus-sync.config.js:/work/directus-sync.config.js:ro
+      - ./redline-directus-backend/directus-config:/work/directus-config:ro   # <── Adjusted path after moving compose to repo root
+    working_dir: /work
+    entrypoint: ["directus-sync"]
+    profiles:
+      - tools
+    networks:
+      - redline-network
