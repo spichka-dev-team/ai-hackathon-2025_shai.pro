@@ -68,3 +68,26 @@ services:
       retries: 30
     networks:
       - redline-network
+
+  directus-sync:
+    build:
+      context: ./directus-sync
+      dockerfile: Dockerfile.prod
+    image: local/directus-sync:3.3.0
+    container_name: directus-sync_prod
+    depends_on:
+      - directus
+    environment:
+      DIRECTUS_ADMIN_EMAIL: ${DIRECTUS_EMAIL_SYNC}
+      DIRECTUS_ADMIN_PASSWORD: ${DIRECTUS_PASSWORD_SYNC}
+      DIRECTUS_URL_SYNC: ${DIRECTUS_URL_SYNC}
+    volumes:
+      # or in Dockerfile: COPY directus-sync.config.js /work/directus-sync.config.js
+      #- ./directus-sync/directus-sync.config.js:/work/directus-sync.config.js:ro
+      - ./directus-config:/work/directus-config   # <── Mounts host ./directus-config
+    working_dir: /work
+    entrypoint: ["directus-sync"]
+    profiles:
+      - tools
+    networks:
+      - redline-network
