@@ -76,7 +76,8 @@ services:
     #image: ./directus-sync:3.3.0
     container_name: directus-sync_prod
     depends_on:
-      - directus
+      directus:
+        condition: service_healthy
     environment:
       DIRECTUS_ADMIN_EMAIL: ${DIRECTUS_EMAIL_SYNC}
       DIRECTUS_ADMIN_PASSWORD: ${DIRECTUS_PASSWORD_SYNC}
@@ -84,7 +85,7 @@ services:
     volumes:
       # or in Dockerfile: COPY directus-sync.config.js /work/directus-sync.config.js
       #- ./directus-sync/directus-sync.config.js:/work/directus-sync.config.js:ro
-      - ./directus-config:/work/directus-config   # <── Mounts host ./directus-config
+      - ./redline-directus-backend/directus-config:/work/directus-config:ro   # <── Adjusted path after moving compose to repo root
     working_dir: /work
     entrypoint: ["directus-sync"]
     profiles:
